@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-slate-50 to-blue-50 dark:from-dark-bg dark:to-slate-900 text-slate-900 dark:text-slate-100 font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-600 rounded-full hover:bg-slate-400 dark:hover:bg-slate-500;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/70 dark:bg-dark-card/70 backdrop-blur-xl border border-slate-200/50 dark:border-dark-border/50;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply px-6 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-medium rounded-lg shadow-lg shadow-primary-500/30 transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-2.5 bg-slate-200 dark:bg-dark-card hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium rounded-lg transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 hover:bg-slate-100 dark:hover:bg-dark-card text-slate-700 dark:text-slate-300 rounded-lg transition-colors duration-200;
+  }
+
+  /* Input styles */
+  .input {
+    @apply w-full px-4 py-3 bg-white dark:bg-dark-card border border-slate-300 dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-slate-500;
+  }
+
+  /* Card styles */
+  .card {
+    @apply glass rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+
+  /* Message bubble */
+  .message-user {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-md;
+  }
+
+  .message-assistant {
+    @apply glass rounded-2xl rounded-tl-sm px-4 py-3 shadow-md;
+  }
+
+  /* Animations */
+  .animate-in {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  /* Loading dots */
+  .loading-dots span {
+    animation: blink 1.4s infinite both;
+  }
+
+  .loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes blink {
+
+    0%,
+    80%,
+    100% {
+      opacity: 0.3;
+    }
+
+    40% {
+      opacity: 1;
+    }
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-500 to-purple-600 bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
