@@ -252,6 +252,30 @@ The application supports multiple AI providers:
 - Check Node.js version compatibility
 - Verify all dependencies are installed
 
+## 🚀 Deployment
+
+### Backend (Render.com)
+
+1. Create a new **Web Service** on Render
+2. Connect your GitHub repository
+3. Set Root Directory to `backend`
+4. Set Build Command to `npm install`
+5. Set Start Command to `npm start`
+6. Add Environment Variables from your `.env` file
+7. Copy the deployed URL (e.g., `https://your-app.onrender.com`)
+
+### Frontend (Vercel)
+
+1. Import your GitHub repository on Vercel
+2. Set Root Directory to `frontend`
+3. Add Environment Variable:
+   - `VITE_API_URL`: Your Render Backend URL + `/api`
+4. Deploy!
+
+### Final Step
+- Go back to Render and add `FRONTEND_URL` environment variable with your Vercel URL
+- Redeploy the backend
+
 ## 📄 License
 
 ISC
