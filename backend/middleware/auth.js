@@ -19,7 +19,7 @@ export const protect = async (req, res, next) => {
 
     try {
         // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);     // return the decoded payload
 
         // Get user from token
         req.user = await User.findById(decoded.id).select('-password');
@@ -53,6 +53,8 @@ export const protect = async (req, res, next) => {
             success: false,
             message: 'Not authorized to access this route.'
         });
+
+        // or message: 'Authentication failed. Please try again.'
     }
 };
 
