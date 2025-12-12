@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { FiSend, FiLoader } from 'react-icons/fi';
+import { FiSend, FiLoader, FiAlertCircle, FiX } from 'react-icons/fi';
 import { useChat } from '../../context/ChatContext';
 import { useAuth } from '../../context/AuthContext';
 import MessageBubble from './MessageBubble';
@@ -7,6 +7,7 @@ import MessageBubble from './MessageBubble';
 const ChatInterface = () => {
     const [message, setMessage] = useState('');
     const [provider, setProvider] = useState('');
+    const [error, setError] = useState(null);
     const messagesEndRef = useRef(null);
     const { currentConversation, sendMessage, sending } = useChat();
     const { user } = useAuth();
@@ -31,6 +32,7 @@ const ChatInterface = () => {
 
         const messageText = message;
         setMessage('');
+        setError(null); // Clear previous errors
 
         try {
             await sendMessage(
@@ -40,12 +42,44 @@ const ChatInterface = () => {
             );
         } catch (error) {
             console.error('Error sending message:', error);
+
+            // Extract error message from response
+            const errorMessage = error.response?.data?.message ||
+                error.response?.data?.error ||
+                error.message ||
+                'Failed to send message. Please try again.';
+
+            setError(errorMessage);
             setMessage(messageText); // Restore message on error
         }
     };
 
     return (
         <div className="flex flex-col h-full">
+            {/* Error Alert */}
+            {error && (
+                <div className="bg-red-50 dark:bg-red-900/20 border-b border-red-200 dark:border-red-800 px-6 py-4">
+                    <div className="flex items-start gap-3">
+                        <FiAlertCircle className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" size={20} />
+                        <div className="flex-1">
+                            <p className="text-sm font-medium text-red-800 dark:text-red-300 mb-1">
+                                Error sending message
+                            </p>
+                            <p className="text-sm text-red-700 dark:text-red-400">
+                                {error}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() => setError(null)}
+                            className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200 transition-colors"
+                            aria-label="Dismiss error"
+                        >
+                            <FiX size={20} />
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Chat Header */}
             <div className="glass border-b border-slate-200 dark:border-dark-border px-6 py-4">
                 <div className="flex items-center justify-between">
