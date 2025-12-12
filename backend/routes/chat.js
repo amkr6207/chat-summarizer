@@ -92,9 +92,28 @@ router.post('/', protect, async (req, res) => {
 
     } catch (error) {
         console.error('Chat error:', error);
+
+        // Provide more specific error messages
+        let errorMessage = 'Error processing chat message';
+
+        // Check for specific error types
+        if (error.message) {
+            if (error.message.includes('API key not configured')) {
+                errorMessage = `${error.message}. Please configure your API keys in the backend environment variables.`;
+            } else if (error.message.includes('quota') || error.message.includes('limit')) {
+                errorMessage = `API quota or rate limit exceeded: ${error.message}`;
+            } else if (error.message.includes('401') || error.message.includes('authentication')) {
+                errorMessage = `Authentication failed: ${error.message}. Please check your API key.`;
+            } else if (error.message.includes('model')) {
+                errorMessage = `Model error: ${error.message}`;
+            } else {
+                errorMessage = error.message;
+            }
+        }
+
         res.status(500).json({
             success: false,
-            message: 'Error processing chat message',
+            message: errorMessage,
             error: error.message
         });
     }
