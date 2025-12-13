@@ -2,6 +2,12 @@
 
 A full-stack chat application with multi-AI provider support, conversation management, and intelligent analysis.
 
+## 🚀 Live Links
+
+- **Frontend**: [Chat Summarizer App](https://chat-summarizer-frontend-zeta.vercel.app)
+- **Backend**: [API Server](https://chat-summarizer.onrender.com)
+
+
 ## Features
 
 - Multi-AI Provider Support (OpenAI, Claude, Gemini, LM Studio)
