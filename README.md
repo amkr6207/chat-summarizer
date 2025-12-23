@@ -8,6 +8,11 @@ A full-stack chat application with multi-AI provider support, conversation manag
 - **Backend**: [API Server](https://chat-summarizer.onrender.com)
 
 
+## 🚀 CI
+
+![CI](https://github.com/amkr6207/chat-summarizer/actions/workflows/ci.yml/badge.svg)
+
+
 ## Features
 
 - Multi-AI Provider Support (OpenAI, Claude, Gemini, LM Studio)

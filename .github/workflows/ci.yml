@@ -1,0 +1,128 @@
+name: Chat Summarizer CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  backend:
+    name: Backend – Install Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Backend tests (not implemented yet)
+        working-directory: backend
+        run: echo "Backend tests will be added later"
+
+  frontend:
+    name: Frontend – Build Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+      
+      - name: Lint frontend
+        working-directory: frontend
+        run: npm run lint
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Below code will give error becoz test case is not there
+
+
+
+# name: Chat Summarizer CI
+
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+
+# jobs:
+#   backend:
+#     name: Backend - Build & Test
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 18
+
+#       - name: Install backend dependencies
+#         working-directory: backend
+#         run: npm install
+
+#       - name: Run backend tests
+#         working-directory: backend
+#         run: npm test
+
+#   frontend:
+#     name: Frontend - Build & Test 
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 18
+
+#       - name: Install frontend dependencies
+#         working-directory: frontend
+#         run: npm install
+
+#       - name: Build frontend
+#         working-directory: frontend
+#         run: npm run build
