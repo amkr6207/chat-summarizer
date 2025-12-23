@@ -94,6 +94,4 @@ VITE_API_URL=http://localhost:5000/api
 ### Final Step
 Add `FRONTEND_URL` (your Vercel URL) to Render backend environment variables.
 
-## License
 
-ISC
