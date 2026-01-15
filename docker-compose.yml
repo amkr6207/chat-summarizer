@@ -17,11 +17,16 @@ services:
       - "5000:5000"
     env_file:
       - ./backend/.env
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/chat-summarizer
     depends_on:
       - mongo
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_URL=http://localhost:5000/api
     container_name: chat-frontend
     ports:
       - "3000:80"

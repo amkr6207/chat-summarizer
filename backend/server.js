@@ -14,7 +14,11 @@ connectDB();
 
 // Middleware
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'https://chat-summarizer-frontend-zeta.vercel.app',
+    origin: [
+        process.env.FRONTEND_URL || 'http://localhost:5173',
+        'http://localhost:3000', // Docker frontend
+        'https://chat-summarizer-frontend-zeta.vercel.app'
+    ],
     credentials: true
 }));
 
