@@ -1,5 +1,9 @@
 # AI Chat Portal
 
+> [!IMPORTANT]
+> **CURRENTLY ONLY GROQ IS WORKING**
+> Due to API limits on other providers, please select **Groq** as your AI provider to ensure free and reliable functionality.
+
 A full-stack chat application with multi-AI provider support, conversation management, and intelligent analysis.
 
 ## 🚀 Live Links
@@ -15,7 +19,7 @@ A full-stack chat application with multi-AI provider support, conversation manag
 
 ## Features
 
-- Multi-AI Provider Support (OpenAI, Claude, Gemini, LM Studio)
+- Multi-AI Provider Support (OpenAI, Claude, Gemini, Groq, LM Studio)
 - Conversation storage and search
 - AI-powered summaries and insights
 - Natural language queries on chat history
@@ -25,7 +29,7 @@ A full-stack chat application with multi-AI provider support, conversation manag
 
 **Backend**: Node.js, Express, MongoDB, JWT  
 **Frontend**: React, Vite, Tailwind CSS  
-**AI**: OpenAI, Anthropic, Google Gemini
+**AI**: **Groq (Recommended)**, OpenAI, Anthropic, Google Gemini
 
 ## Quick Start
 

@@ -37,7 +37,7 @@ const conversationSchema = new mongoose.Schema({
     messages: [messageSchema],
     aiProvider: {
         type: String,
-        enum: ['openai', 'claude', 'gemini', 'lmstudio'],
+        enum: ['openai', 'claude', 'gemini', 'groq', 'lmstudio'],
         required: true,
         default: 'openai'
     },

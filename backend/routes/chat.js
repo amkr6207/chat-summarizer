@@ -41,7 +41,7 @@ router.post('/', protect, async (req, res) => {
                 userId: req.user._id,
                 title: 'New Conversation',
                 aiProvider,
-                model: model || 'gpt-3.5-turbo',
+                model: model || null,
                 messages: []
             });
         }
@@ -80,7 +80,7 @@ router.post('/', protect, async (req, res) => {
             success: true,
             data: {
                 conversation: {
-                    id: conversation._id,
+                    _id: conversation._id,
                     title: conversation.title,
                     messages: conversation.messages,
                     aiProvider: conversation.aiProvider,

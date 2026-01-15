@@ -100,7 +100,9 @@ const ChatInterface = () => {
                         <option value="openai">OpenAI</option>
                         <option value="claude">Claude</option>
                         <option value="gemini">Gemini</option>
+                        <option value="groq">Groq</option>
                         <option value="lmstudio">LM Studio</option>
+
                     </select>
                 </div>
             </div>

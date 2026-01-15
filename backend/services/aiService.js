@@ -9,6 +9,7 @@ class AIService {
         console.log('OpenAI:', process.env.OPENAI_API_KEY ? '✅ Configured' : '❌ Missing');
         console.log('Anthropic:', process.env.ANTHROPIC_API_KEY ? '✅ Configured' : '❌ Missing');
         console.log('Google:', process.env.GOOGLE_API_KEY ? '✅ Configured' : '❌ Missing');
+        console.log('Groq:', process.env.GROQ_API_KEY ? '✅ Configured' : '❌ Missing');
 
         // Initialize AI clients
         this.openai = process.env.OPENAI_API_KEY
@@ -21,6 +22,13 @@ class AIService {
 
         this.googleAI = process.env.GOOGLE_API_KEY
             ? new GoogleGenerativeAI(process.env.GOOGLE_API_KEY)
+            : null;
+
+        this.groq = process.env.GROQ_API_KEY
+            ? new OpenAI({
+                apiKey: process.env.GROQ_API_KEY,
+                baseURL: 'https://api.groq.com/openai/v1'
+            })
             : null;
 
         this.lmStudioUrl = process.env.LM_STUDIO_URL || 'http://localhost:1234/v1';
@@ -45,6 +53,8 @@ class AIService {
                     // Using 'gemini-2.0-flash' as it is confirmed available for this key
                     const geminiModel = (model && !model.includes('gpt')) ? model : 'gemini-2.0-flash';
                     return await this.sendGeminiMessage(messages, geminiModel);
+                case 'groq':
+                    return await this.sendGroqMessage(messages, model || 'llama-3.3-70b-versatile');
                 case 'lmstudio':
                     return await this.sendLMStudioMessage(messages, model || 'local-model');
                 default:
@@ -130,6 +140,27 @@ class AIService {
                 model,
                 tokens: 0, // Gemini doesn't provide token count in the same way
                 provider: 'gemini'
+            }
+        };
+    }
+
+    async sendGroqMessage(messages, model) {
+        if (!this.groq) {
+            throw new Error('Groq API key not configured');
+        }
+
+        const response = await this.groq.chat.completions.create({
+            model,
+            messages,
+            temperature: 0.7,
+        });
+
+        return {
+            content: response.choices[0].message.content,
+            metadata: {
+                model: response.model,
+                tokens: response.usage?.total_tokens || 0,
+                provider: 'groq'
             }
         };
     }
@@ -229,8 +260,10 @@ class AIService {
     async queryHistory(provider, query, conversations) {
         // Build context from conversations
         const context = conversations.map((conv, idx) => {
-            const preview = conv.messages.slice(0, 5)
-                .map(m => `${m.role}: ${m.content.substring(0, 100)}`)
+            // Take the last 20 messages to ensure we get the most relevant recent context
+            // Increase character limit to 1000 to capture full thoughts
+            const preview = conv.messages.slice(-20)
+                .map(m => `${m.role}: ${m.content.substring(0, 1000)}${m.content.length > 1000 ? '...' : ''}`)
                 .join('\n');
             return `Conversation ${idx + 1} (${conv.title}):\n${preview}\n---`;
         }).join('\n\n');
