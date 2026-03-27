@@ -53,7 +53,19 @@ cp .env.example .env
 # Edit .env with VITE_API_URL=http://localhost:5000/api
 ```
 
-### Run Locally
+### 🐳 Run with Docker (Recommended)
+
+Run the entire app (Frontend + Backend + DB) with a single command:
+
+```bash
+docker-compose up --build
+```
+
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:5000
+
+
+### Run Locally (Manual)
 
 ```bash
 # Terminal 1 - Backend
